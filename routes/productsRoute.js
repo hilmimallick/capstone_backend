@@ -13,6 +13,7 @@ router.get("/", (req, res) => {
     res.status(400).send(error);
   }
 });
+
 router.get("/:id", (req, res) => {
   try {
     con.query(
