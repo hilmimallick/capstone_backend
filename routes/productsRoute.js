@@ -30,10 +30,10 @@ router.get("/:id", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  const { name, price, description, artist, image, category } = req.body;
+  const { name, price, description, artist, image, category, size } = req.body;
   try {
     con.query(
-      `INSERT INTO products (name,price,description,artist,image,category) values('${name}', '${price}', '${description}', '${artist}', '${image}', '${category}') `,
+      `INSERT INTO products (name,price,description,artist,image,category,size) values('${name}', '${price}', '${description}', '${artist}', '${image}', '${category}', '${size}') `,
       (err, result) => {
         if (err) throw err;
         res.send(result);
@@ -46,10 +46,11 @@ router.post("/", (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
-  const { name, price, description, artist, image, category } = req.body;
+  const { name, price, description, artist, image, category, size } = req.body;
   try {
     con.query(
-      `UPDATE  FROM products SET name='${name}', price='${price}', description='${description}', artist='${artist}' image ='${image}', category='${category}', WHERE products =${req.params.id}`,
+      `UPDATE  FROM products SET name='${name}', price='${price}', description='${description}', artist='${artist}' image ='${image}', category='${category}',
+      size='${size}', WHERE products =${req.params.id}`,
       (err, result) => {
         if (err) throw err;
         res.send(result);
