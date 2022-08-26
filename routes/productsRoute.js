@@ -49,8 +49,8 @@ router.put("/:id", (req, res) => {
   const { name, price, description, artist, image, category, size } = req.body;
   try {
     con.query(
-      `UPDATE  FROM products SET name='${name}', price='${price}', description='${description}', artist='${artist}' image ='${image}', category='${category}',
-      size='${size}', WHERE products =${req.params.id}`,
+      `UPDATE products SET name='${name}', price='${price}', description='${description}', artist='${artist}' image ='${image}', category='${category}',
+      size='${size}', WHERE product_id ="${req.params.id}"`,
       (err, result) => {
         if (err) throw err;
         res.send(result);
