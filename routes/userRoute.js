@@ -154,4 +154,30 @@ router.get("/", middleware, (req, res) => {
   }
 });
 
+//updating products
+router.put("/:id", (req, res) => {
+  const {
+    full_name,
+    email,
+    user_type,
+    phone,
+    country,
+    billing_address,
+    default_shipping_address,
+  } = req.body;
+  try {
+    con.query(
+      `UPDATE users SET full_name='${full_name}', email='${email}', user_type='${user_type}', phone='${phone}', country ='${country}', billing_address='${billing_address}',
+      default_shipping_address='${default_shipping_address}' WHERE user_id ='${req.params.id}'`,
+      (err, result) => {
+        if (err) throw err;
+        res.send(result);
+      }
+    );
+  } catch (error) {
+    console.log(error);
+    res.status(400).send(error);
+  }
+});
+
 module.exports = router;
