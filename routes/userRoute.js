@@ -180,4 +180,19 @@ router.put("/:id", (req, res) => {
   }
 });
 
+router.delete("/:id", (req, res) => {
+  try {
+    con.query(
+      `DELETE FROM users WHERE user_id = ${req.params.id}`,
+      (err, result) => {
+        if (err) throw err;
+        res.send(result);
+      }
+    );
+  } catch (error) {
+    console.log(error);
+    res.status(400).send(error);
+  }
+});
+
 module.exports = router;
