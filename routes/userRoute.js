@@ -154,7 +154,7 @@ router.get("/", middleware, (req, res) => {
   }
 });
 
-//updating products
+//updating users
 router.put("/:id", (req, res) => {
   const {
     full_name,
