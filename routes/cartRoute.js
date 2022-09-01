@@ -16,10 +16,9 @@ router.get("/users/:id/cart", middleware, (req, res) => {
         if (a === b) {
           //   res.send(results[0].cart);
           console.log(results[0]);
-          res.json(results);
+          res.json(JSON.parse(results[0].cart));
         } else {
           res.json({
-            c: req.user,
             a,
             b,
             msg: "Please Login To View cart",
@@ -87,10 +86,10 @@ router.post("/users/:id/cart", middleware, bodyParser.json(), (req, res) => {
   }
 });
 // delete one item from cart
-router.delete("/users/:id/cart/:product_id", middleware, (req, res) => {
+router.delete("/users/:id/cart/:cartid", middleware, (req, res) => {
   const dcart = `SELECT cart
     FROM users
-    WHERE id = ?`;
+    WHERE user_id = ?`;
   con.query(dcart, req.user.user_id, (err, results) => {
     if (err) throw err;
     let item = JSON.parse(results[0].cart).filter((x) => {
@@ -100,11 +99,11 @@ router.delete("/users/:id/cart/:product_id", middleware, (req, res) => {
     const strQry = `
     UPDATE users
     SET cart = ?
-    WHERE id= ? ;
+    WHERE user_id= ? ;
     `;
     con.query(
       strQry,
-      [JSON.stringify(item), req.user.id],
+      [JSON.stringify(item), req.user.user_id],
       (err, data, fields) => {
         if (err) throw err;
         res.json({
@@ -118,14 +117,14 @@ router.delete("/users/:id/cart/:product_id", middleware, (req, res) => {
 router.delete("/users/:id/cart", middleware, (req, res) => {
   const dcart = `SELECT cart
     FROM users
-    WHERE id = ?`;
+    WHERE user_id = ?`;
   con.query(dcart, req.user.user_id, (err, results) => {
     // let cart =
   });
   const strQry = `
     UPDATE users
       SET cart = null
-      WHERE (id = ?);
+      WHERE (user_id = ?);
       `;
   con.query(strQry, [req.user.user_id], (err, data, fields) => {
     if (err) throw err;
