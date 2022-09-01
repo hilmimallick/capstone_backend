@@ -1,6 +1,9 @@
 const express = require("express"); // Used to set up a server
 const cors = require("cors"); // Used to prevent errors when working locally
 const path = require("path");
+const cartRoute = require("./routes/cartRoute");
+const userRoute = require("./routes/userRoute");
+const productsRoute = require("./routes/productsRoute");
 
 const app = express(); // Initialize express as an app variable
 app.set("port", process.env.PORT || 7373); // Set the port
@@ -18,14 +21,11 @@ app.get("/", function (req, res) {
   res.sendFile(staticPath + "/endpoint.html");
 });
 
-const productsRoute = require("./routes/productsRoute");
 app.use("/products", productsRoute);
 
-const userRoute = require("./routes/userRoute");
 app.use("/users", userRoute);
 
-const cartRoute = require("./routes/cartRoute");
-app.use("/cart", cartRoute);
+app.use(cartRoute);
 
 app.listen(app.get("port"), () => {
   console.log(`Listening for calls on port ${app.get("port")}`);
