@@ -93,7 +93,7 @@ router.delete("/users/:id/cart/:cartid", middleware, (req, res) => {
   con.query(dcart, req.user.user_id, (err, results) => {
     if (err) throw err;
     let item = JSON.parse(results[0].cart).filter((x) => {
-      return x.cartid != req.params.product_id;
+      return x.cartid != req.params.cartid;
     });
     // res.send(item)
     const strQry = `
