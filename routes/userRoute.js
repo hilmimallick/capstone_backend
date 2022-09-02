@@ -95,28 +95,29 @@ router.post("/login", (req, res) => {
           res.send("Password incorrect");
         } else {
           // The information the should be stored inside token
-          const payload = {
-            user: {
-              user_id: result[0].user_id,
-              full_name: result[0].full_name,
-              email: result[0].email,
-              user_type: result[0].user_type,
-              phone: result[0].phone,
-              country: result[0].country,
-              billing_address: result[0].billing_address,
-              default_shipping_address: result[0].default_shipping_address,
-            },
+          const user = {
+            user_id: result[0].user_id,
+            full_name: result[0].full_name,
+            email: result[0].email,
+            user_type: result[0].user_type,
+            phone: result[0].phone,
+            country: result[0].country,
+            billing_address: result[0].billing_address,
+            default_shipping_address: result[0].default_shipping_address,
           };
           // Creating a token and setting expiry date
           jwt.sign(
-            payload,
+            user,
             process.env.jwtSecret,
             {
               expiresIn: "365d",
             },
             (err, token) => {
               if (err) throw err;
-              res.json({ token });
+              res.json({
+                results: user,
+                token,
+              });
             }
           );
         }
