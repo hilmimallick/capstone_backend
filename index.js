@@ -11,6 +11,12 @@ app.use(express.json()); // Enable the server to handle JSON requests
 app.use(cors()); // Dont let local development give errors
 app.use(express.static("public"));
 
+app.get("/", (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  res.sendFile(__dirname + "/index");
+});
+
 const staticPath = path.join(__dirname + "/public");
 // app.use(express.static(staticPath));
 
