@@ -1,4 +1,3 @@
-const bodyParser = require("body-parser");
 const express = require("express");
 const router = express.Router();
 const con = require("../lib/db_connection");
@@ -37,7 +36,10 @@ router.post("/", (req, res) => {
       `INSERT INTO products (name,price,description,artist,image,category,size) values('${name}', '${price}', '${description}', '${artist}', '${image}', '${category}', '${size}') `,
       (err, result) => {
         if (err) throw err;
-        res.send(result);
+        res.json({
+          msg: "U added this art",
+          results: result,
+        });
       }
     );
   } catch (error) {
