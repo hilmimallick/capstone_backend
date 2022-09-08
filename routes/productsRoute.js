@@ -71,7 +71,10 @@ router.delete("/:id", (req, res) => {
       `DELETE FROM products WHERE product_id = ${req.params.id}`,
       (err, result) => {
         if (err) throw err;
-        res.send(result);
+        // res.send(result);
+        res.json({
+          msg: "This art was removed",
+        });
       }
     );
   } catch (error) {
