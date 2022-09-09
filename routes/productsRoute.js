@@ -56,7 +56,10 @@ router.put("/:id", (req, res) => {
       size='${size}' WHERE product_id ='${req.params.id}'`,
       (err, result) => {
         if (err) throw err;
-        res.send(result);
+        res.json({
+          msg: "This art was changed",
+          results: result,
+        });
       }
     );
   } catch (error) {
